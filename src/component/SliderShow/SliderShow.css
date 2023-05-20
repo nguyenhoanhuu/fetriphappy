@@ -1,0 +1,19 @@
+.indicator.active {
+   border-radius: 50%;
+   color: #0064b6;
+}
+.indicators {
+   position: relative;
+   width: 100%;
+   margin: auto;
+   top: -10px;
+   color: rgba(0, 100, 182, 0.25);
+}
+.indicator {
+   padding: 5px;
+}
+.slide-main {
+   width: 100%;
+   position: relative;
+   left: 22px;
+}

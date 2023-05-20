@@ -1,0 +1,17 @@
+.wrapper {
+   width: var(--width-header);
+   background: #f9f9f9;
+}
+.container {
+   position: relative;
+   margin: auto;
+   width: 90%;
+}
+.sign-in-form {
+   padding: 20px;
+   background: rgb(34, 193, 195);
+   background: linear-gradient(90deg, rgba(34, 193, 195, 1) 0%, rgba(253, 187, 45, 1) 100%);
+}
+.footer-main {
+   font-size: 1.6rem;
+}
