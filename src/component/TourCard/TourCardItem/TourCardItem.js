@@ -1,5 +1,6 @@
 import classNames from 'classnames/bind';
 import styles from '~/component/TourCard/TourCardItem/TourCardItem.module.scss';
+import { parseISO, format } from 'date-fns';
 
 import React from 'react';
 import { Card, Image } from 'antd';
@@ -66,7 +67,7 @@ function TourCardItem({ data, isSmall, shortenCard = false }) {
          <div className={cx('card-body')}>
             <div className={cx('header-tour')}>
                <div className={cx('start-day')}>
-                  {format(new Date(data.startDay), 'dd/MM/yyyy')} - {data.numberOfDay} ngày
+               {format(parseISO(data.startDay), 'dd/MM/yyyy')} - {data.numberOfDay} ngày
                </div>
                <Link to={'/detail/' + data.id} className={cx('wrapper')}>
                   <div className={cx('name-tour')}>{data.name}</div>
