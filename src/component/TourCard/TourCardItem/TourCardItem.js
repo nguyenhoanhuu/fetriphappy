@@ -29,7 +29,8 @@ function TourCardItem({ data, isSmall, shortenCard = false }) {
                // style={{ maxHeight: 1000 / divide }}
                alt="example"
                // src=""
-               src={fallback || (data && data.images[0] && data.images[0])}
+               src={fallback || (data && data.images && data.images[0])}
+
                onError={handleError}
             />
             <span className={cx('icon-favorite')}>
