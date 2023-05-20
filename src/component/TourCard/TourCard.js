@@ -9,8 +9,10 @@ const cx = classNames.bind(styles);
 
 function TourCard({ title = 'Ưu đãi tour giờ chót', data = [], className, numTour = 3, isSmall, shortenCard }) {
   const showListTourCard = () => {
-    return data.map((item, index) => {
-      return (
+    const tourCardItems = [];
+    for (let index = 0; index < data.length; index++) {
+      const item = data[index];
+      tourCardItems.push(
         <TourCardItem
           key={index}
           numberCard={numTour}
@@ -19,7 +21,8 @@ function TourCard({ title = 'Ưu đãi tour giờ chót', data = [], className, 
           shortenCard={shortenCard}
         />
       );
-    });
+    }
+    return tourCardItems;
   };
 
   return (
