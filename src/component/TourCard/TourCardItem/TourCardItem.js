@@ -1,17 +1,16 @@
 import classNames from 'classnames/bind';
 import styles from '~/component/TourCard/TourCardItem/TourCardItem.module.scss';
-import { parseISO, format } from 'date-fns';
+import { format, formatDistanceToNow } from 'date-fns';
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Card, Image } from 'antd';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart } from '@fortawesome/free-regular-svg-icons';
 import { faDollarSign, faTicket } from '@fortawesome/free-solid-svg-icons';
-import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { formatDistanceToNow } from 'date-fns';
 import vietnamLocate from 'date-fns/locale/vi';
 import images from '~/assets/image';
+
 const cx = classNames.bind(styles);
 
 function TourCardItem({ data, isSmall, shortenCard = false }) {
@@ -19,19 +18,18 @@ function TourCardItem({ data, isSmall, shortenCard = false }) {
    const [widthCard, setWidthCard] = useState(315);
    const [fallback, setFallback] = useState('');
    const divide = isSmall ? 5 : 3.6;
+
    const handleError = () => {
       setFallback('https://media.travel.com.vn/LastMinute/lm_230103101302_622112.jpg');
    };
+
    const backgroundInCard = () => {
       return (
          <div className={cx('infor-background')}>
             <Image
                className={cx('image')}
-               // style={{ maxHeight: 1000 / divide }}
                alt="example"
-               // src=""
                src={fallback || (data && data.images && data.images[0])}
-
                onError={handleError}
             />
             <span className={cx('icon-favorite')}>
@@ -58,6 +56,7 @@ function TourCardItem({ data, isSmall, shortenCard = false }) {
       }
       setWindowWidth(window.innerWidth);
    };
+
    useEffect(() => {
       detectSize();
    }, []);
@@ -67,14 +66,14 @@ function TourCardItem({ data, isSmall, shortenCard = false }) {
          <div className={cx('card-body')}>
             <div className={cx('header-tour')}>
                <div className={cx('start-day')}>
-               {format(parseISO(data.startDay), 'dd/MM/yyyy')} - {data.numberOfDay} ngày
+                  {`${data.startDay.getDate()}/${data.startDay.getMonth() + 1}/${data.startDay.getFullYear()}`} - {data.numberOfDay} ngày
                </div>
-               <Link to={'/detail/' + data.id} className={cx('wrapper')}>
+               <Link to={`/detail/${data.id}`} className={cx('wrapper')}>
                   <div className={cx('name-tour')}>{data.name}</div>
                </Link>
             </div>
             <div className={cx('body-tour')}>
-               {shortenCard === false && (
+               {!shortenCard && (
                   <div>
                      <label htmlFor="tourId">Mã tour:</label>
                      <div className={cx('tour-id')}>
@@ -87,7 +86,7 @@ function TourCardItem({ data, isSmall, shortenCard = false }) {
                   <label htmlFor="pointOfDeparture">Nơi khởi hành:</label>
                   <p>{data.departure}</p>
                </div>
-               {shortenCard === false && (
+               {!shortenCard && (
                   <div>
                      <label htmlFor="costOriginal">Giá: </label>
                      <s name="costOriginal">{data.price.toLocaleString()}₫</s>
@@ -96,16 +95,15 @@ function TourCardItem({ data, isSmall, shortenCard = false }) {
                <div className={cx('cost-current')}>
                   <span className={cx('cost-current-number')}>
                      {data.promotionPrice === 0 ? data.price.toLocaleString() : data.promotionPrice.toLocaleString()}₫
-                     {/* {data.promotionPrice.toLocaleString()}₫ */}
                   </span>
-                  {shortenCard === false && (
+                  {!shortenCard && (
                      <span className={cx('discount-percent')}>
                         {((1 - data.promotionPrice / data.price) * 100).toLocaleString()}% GIẢM
                      </span>
                   )}
                </div>
                <div className={cx('cost-current-timer')}>
-                  <span>Còn {formatDistanceToNow(new Date(data.startDay), { locale: vietnamLocate })}</span>
+                  <span>Còn {formatDistanceToNow(data.startDay, { locale: vietnamLocate })}</span>
                </div>
                <div>
                   <span className={cx('slot')}>
@@ -116,6 +114,7 @@ function TourCardItem({ data, isSmall, shortenCard = false }) {
             </div>
          </div>
       </Card>
+
    );
 }
 
