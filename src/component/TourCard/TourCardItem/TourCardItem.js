@@ -9,7 +9,7 @@ import { faHeart } from '@fortawesome/free-regular-svg-icons';
 import { faDollarSign, faTicket } from '@fortawesome/free-solid-svg-icons';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { format, formatDistanceToNow } from 'date-fns';
+import { formatDistanceToNow } from 'date-fns';
 import vietnamLocate from 'date-fns/locale/vi';
 import images from '~/assets/image';
 const cx = classNames.bind(styles);
